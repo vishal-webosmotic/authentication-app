@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupUserMutation } from '../../services/authApi';
-import './SignUp.module.css';
+import styles from '../page.module.css';
 
 export default function SignUp() {
   const { register, handleSubmit, formState } = useForm({
@@ -19,8 +19,11 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [userError, setUserError] = useState('');
-  const { errors, isSubmitting } = formState;
+  // const { errors, isSubmitting } = formState;
+  const { errors } = formState;
+
   const [signupUser, res] = useSignupUserMutation();
+  console.log(res);
   useEffect(() => {
     if (res.isError) {
       setUserError(res.error?.data?.message);
@@ -39,11 +42,11 @@ export default function SignUp() {
   function onSubmit(data) {
     signupUser(data);
     setUserError('');
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 800);
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 800);
+    // });
   }
   const registerOptions = {
     name: { required: 'Name is required' },
@@ -114,17 +117,27 @@ export default function SignUp() {
             {errors?.password && errors.password.message}
           </div>
         </div>
-        <div className="text-center error">{userError}</div>
-        <div className="row justify-content-center" disabled={isSubmitting}>
+        <div className={styles.error}>{userError}</div>
+        <div className="row justify-content-center">
+          <button type="submit" className="btn btn-primary mt-2">
+            {res.isLoading && (
+              <span className="spinner-border spinner-border-sm mr-1"></span>
+            )}
+            Submit
+          </button>
+        </div>
+        {/* <div className="row justify-content-center" disabled={isSubmitting}>
           <button type="submit" className="btn btn-primary mt-2">
             {isSubmitting && (
               <span className="spinner-border spinner-border-sm mr-1"></span>
             )}
             Submit
           </button>
-        </div>
+        </div> */}
       </form>
-      <button className="singInButton">Sing In</button>
+      <button onClick={() => navigate('/signin')} className={styles.singInUp}>
+        Sing In
+      </button>
     </div>
   );
 }

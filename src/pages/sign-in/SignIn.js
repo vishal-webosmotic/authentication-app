@@ -4,9 +4,12 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignInUserMutation } from '../../services/authApi';
-import '../sign-up/SignUp.module.css';
+import styles from '../page.module.css';
+import { useAuth } from './../../context/AuthContext';
 
-export default function SignUp() {
+export default function SignIn() {
+  const { setAuth } = useAuth();
+
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {
       email: 'raj@gmail.com',
@@ -15,25 +18,31 @@ export default function SignUp() {
   });
   const navigate = useNavigate();
   const [userError, setUserError] = useState('');
-  const { errors, isSubmitting } = formState;
+  const { errors } = formState;
   const [signupIn, res] = useSignInUserMutation();
+
   useEffect(() => {
     if (res.isError) {
       setUserError(res.error?.data?.message);
     } else if (res.isSuccess) {
-      navigate('/home');
+      // navigate('/home');
+      setAuth(res);
       setUserError(res.data?.message);
     }
-  }, [res.isError, res.isSuccess, res.error?.data?.message, res.data?.message]);
+  }, [
+    res.isError,
+    res.isSuccess,
+    res.error?.data?.message,
+    res.data?.message,
+    navigate,
+    res,
+    setAuth,
+  ]);
+  // console.log(res?.data?.data?.token);
 
   function onSubmit(data) {
     signupIn(data);
     setUserError('');
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
   }
   const registerOptions = {
     name: { required: 'Name is required' },
@@ -71,16 +80,19 @@ export default function SignUp() {
             {errors?.password && errors.password.message}
           </p>
         </div>
-        <div className="text-center errorMes">{userError}</div>
-        <div className="row justify-content-center" disabled={isSubmitting}>
+        <div className={styles.error}>{userError}</div>
+        <div className="row justify-content-center">
           <button type="submit" className="btn btn-primary mt-2">
-            {isSubmitting && (
+            {res.isLoading && (
               <span className="spinner-border spinner-border-sm mr-1"></span>
             )}
             Submit
           </button>
         </div>
       </form>
+      <button onClick={() => navigate('/signup')} className={styles.singInUp}>
+        Sing Up
+      </button>
     </div>
   );
 }
