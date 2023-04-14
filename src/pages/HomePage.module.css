@@ -59,6 +59,10 @@ tr:hover :not(th) {
   border-radius: 0.25rem;
 }
 
+table {
+  overflow-y: scroll;
+}
+
 /* 
 
 table {

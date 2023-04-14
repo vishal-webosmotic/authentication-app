@@ -52,6 +52,22 @@ export const authApi = createApi({
       },
       transformResponse: (response) => response.data,
     }),
+    getConversationsList: builder.query({
+      query: () => {
+        return {
+          url: 'chats/get-conversations-list',
+          method: 'GET',
+        };
+      },
+    }),
+    getConversations: builder.query({
+      query: () => {
+        return {
+          url: 'chats/get-conversation',
+          method: 'GET',
+        };
+      },
+    }),
   }),
 });
 
@@ -60,4 +76,6 @@ export const {
   useSignInUserMutation,
   useGetPostQuery,
   useGetUserMutation,
+  useGetConversationsListQuery,
+  useGetConversationsQuery,
 } = authApi;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useSignInUserMutation } from '../../services/authApi';
 import { setUserInfo } from '../../store/authSlice';
@@ -28,7 +28,7 @@ export default function SignIn() {
       if (res.isError) {
         setMessage(res.error?.data?.message);
       } else if (res.isSuccess) {
-        await dispatch(setUserInfo(res.data));
+        await dispatch(setUserInfo(res.data.data));
         let token = res?.data?.data?.token;
         setAuth(token);
         setMessage(res.data?.message);
@@ -67,7 +67,7 @@ export default function SignIn() {
     <div className="container">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign In Form</h1>
-        <div className="inputContainer">
+        <div className={styles.inputContainer}>
           <label>Email</label>
           <input
             type="email"
@@ -76,7 +76,7 @@ export default function SignIn() {
           />
           <p className="errorMes">{errors?.email && errors.email.message}</p>
         </div>
-        <div className="inputContainer">
+        <div className={styles.inputContainer}>
           <label>Password</label>
           <input
             type="password"
@@ -88,18 +88,19 @@ export default function SignIn() {
           </p>
         </div>
         <div className={styles.error}>{message}</div>
-        <div className="row justify-content-center">
-          <button type="submit" className="btn btn-primary mt-2">
-            {res.isLoading && (
-              <span className="spinner-border spinner-border-sm mr-1"></span>
-            )}
-            Submit
-          </button>
+        <button type="submit" className="btn btn-primary mt-2">
+          {res.isLoading && (
+            <span className="spinner-border spinner-border-sm mr-1"></span>
+          )}
+          Submit
+        </button>
+        <div className={styles.signUpButton}>
+          <Link to={'/signup'}>Become user</Link>
         </div>
       </form>
-      <button onClick={() => navigate('/signup')} className={styles.singInUp}>
+      {/* <button onClick={() => navigate('/signup')} className={styles.singInUp}>
         Sing Up
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.card_container {
+  border: solid 3px #d3d3de;
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
