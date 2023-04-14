@@ -18,17 +18,16 @@ export default function SignUp() {
   });
   const navigate = useNavigate();
 
-  const [userError, setUserError] = useState('');
+  const [message, setMessage] = useState('');
   // const { errors, isSubmitting } = formState;
   const { errors } = formState;
 
   const [signupUser, res] = useSignupUserMutation();
-  console.log(res);
   useEffect(() => {
     if (res.isError) {
-      setUserError(res.error?.data?.message);
+      setMessage(res.error?.data?.message);
     } else if (res.isSuccess) {
-      setUserError(res.data?.message);
+      setMessage(res.data?.message);
       navigate('/signin');
     }
   }, [
@@ -41,7 +40,7 @@ export default function SignUp() {
 
   function onSubmit(data) {
     signupUser(data);
-    setUserError('');
+    setMessage('');
     // return new Promise((resolve) => {
     //   setTimeout(() => {
     //     resolve();
@@ -117,7 +116,7 @@ export default function SignUp() {
             {errors?.password && errors.password.message}
           </div>
         </div>
-        <div className={styles.error}>{userError}</div>
+        <div className={styles.error}>{message}</div>
         <div className="row justify-content-center">
           <button type="submit" className="btn btn-primary mt-2">
             {res.isLoading && (

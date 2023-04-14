@@ -1,30 +1,38 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { UserContext } from '../context/AuthContext';
-
-// import { Navigate } from 'react-router-dom';
-
-// import { useAuth } from '../context/AuthContext';
+import { useGetUserMutation } from '../services/authApi';
+import { setUserInfo } from '../store/authSlice';
 
 const AuthWrapper = ({ isAuth = true, children }) => {
-  // const { token } = useAuth();
-  // console.log('isAuth', {
-  //   isAuth,
-  //   token,
-  // });
-  // console.log(setAuth, token);
-  // isAuth = false;
+  const { userInfo } = useSelector((state) => state.auth);
+  // console.log(userInfo);
   const userData = useContext(UserContext);
-  console.log(userData, isAuth);
+  const [func, data] = useGetUserMutation();
+  const dispatch = useDispatch();
+  // console.log('data', { data, userData, userInfo });
+
+  useEffect(() => {
+    if (!userInfo?.success && userData?.token && isAuth) {
+      func();
+    }
+  }, [userInfo, func, userData?.token, isAuth]);
+
+  useEffect(() => {
+    if (data.isSuccess && data.data) {
+      dispatch(setUserInfo(data.data));
+    }
+  }, [dispatch, data?.isSuccess, data?.data]);
 
   if (userData.token && !isAuth) {
-    console.log('line 11', userData);
     return <Navigate to="/" />;
   } else if (!userData.token && isAuth) {
     return <Navigate to="/signin" />;
   }
-  return <div>{children}</div>;
+  return children;
 };
 export default AuthWrapper;

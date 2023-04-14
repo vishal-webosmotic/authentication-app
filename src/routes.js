@@ -32,4 +32,12 @@ export const routes = createBrowserRouter([
       </AuthWrapper>
     ),
   },
+  {
+    path: '/:id',
+    element: (
+      <AuthWrapper>
+        <HomePage />
+      </AuthWrapper>
+    ),
+  },
 ]);

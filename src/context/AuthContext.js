@@ -28,11 +28,11 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(getAuth());
   // const [token, setToken] = useState(null);
   const setAuth = useCallback((res) => {
-    const value = res?.data?.data?.token;
-    setToken(value);
-    const decoded = jwt_decode(value);
+    setToken(res);
+    const decoded = jwt_decode(res);
     const expires = decoded.exp;
-    document.cookie = `access_token=${value || ''}${expires}; path=/`;
+    document.cookie = `access_token=${res || ''} expires=${expires}; path=/`;
+    // document.cookie = `access_token=${res || ''} expires=${expires}; path=/`;
   }, []);
 
   const removeAuth = useCallback((name) => {

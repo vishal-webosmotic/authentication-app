@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignInUserMutation } from '../../services/authApi';
+import { setUserInfo } from '../../store/authSlice';
 import styles from '../page.module.css';
 import { useAuth } from './../../context/AuthContext';
 
 export default function SignIn() {
   const { setAuth } = useAuth();
 
+  const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {
       email: 'raj@gmail.com',
@@ -17,18 +20,21 @@ export default function SignIn() {
     },
   });
   const navigate = useNavigate();
-  const [userError, setUserError] = useState('');
+  const [message, setMessage] = useState('');
   const { errors } = formState;
   const [signupIn, res] = useSignInUserMutation();
-
   useEffect(() => {
-    if (res.isError) {
-      setUserError(res.error?.data?.message);
-    } else if (res.isSuccess) {
-      // navigate('/home');
-      setAuth(res);
-      setUserError(res.data?.message);
-    }
+    const func = async () => {
+      if (res.isError) {
+        setMessage(res.error?.data?.message);
+      } else if (res.isSuccess) {
+        await dispatch(setUserInfo(res.data));
+        let token = res?.data?.data?.token;
+        setAuth(token);
+        setMessage(res.data?.message);
+      }
+    };
+    func();
   }, [
     res.isError,
     res.isSuccess,
@@ -37,12 +43,13 @@ export default function SignIn() {
     navigate,
     res,
     setAuth,
+    dispatch,
   ]);
   // console.log(res?.data?.data?.token);
 
   function onSubmit(data) {
     signupIn(data);
-    setUserError('');
+    setMessage('');
   }
   const registerOptions = {
     name: { required: 'Name is required' },
@@ -80,7 +87,7 @@ export default function SignIn() {
             {errors?.password && errors.password.message}
           </p>
         </div>
-        <div className={styles.error}>{userError}</div>
+        <div className={styles.error}>{message}</div>
         <div className="row justify-content-center">
           <button type="submit" className="btn btn-primary mt-2">
             {res.isLoading && (
