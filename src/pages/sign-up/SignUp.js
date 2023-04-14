@@ -60,7 +60,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign Up Form</h1>
         <div className="inputContainer">

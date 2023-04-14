@@ -38,7 +38,6 @@ export const authApi = createApi({
     getPost: builder.query({
       query: (number = 1) => {
         return {
-          // url: 'posts/get-feed-post',
           url: `posts/get-feed-post?pageSize=5&pageNumber=${number}`,
           method: 'GET',
         };

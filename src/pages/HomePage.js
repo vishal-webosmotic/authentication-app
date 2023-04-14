@@ -11,17 +11,23 @@ import style from './HomePage.module.css';
 
 const HomePage = () => {
   const { removeAuth } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams({ pageNumber: 1 });
+  const [searchParams, setSearchParams] = useSearchParams({});
   const { userInfo } = useSelector((state) => state.auth);
-  const pageNumber = Number(searchParams.get('pageNumber'));
+
+  const pageNumber = Number(searchParams.get('pageNumber')) || 1;
 
   const state = useGetPostQuery(pageNumber);
   const handleLogout = () => {
     removeAuth('access_token');
   };
-
+  console.log('line 23', pageNumber);
   const handlePreviousData = () => {
-    setSearchParams({ pageNumber: pageNumber - 1 });
+    if (pageNumber === 2) {
+      searchParams.delete('pageNumber');
+      setSearchParams(searchParams);
+    } else {
+      setSearchParams({ pageNumber: pageNumber - 1 });
+    }
   };
   const handleNextData = () => {
     setSearchParams({ pageNumber: pageNumber + 1 });
@@ -33,13 +39,13 @@ const HomePage = () => {
         Logout
       </button>
       <div className="text-center font-weight-bold mb-2">
-        FirstName :{' '}
+        Name :{' '}
         {!userInfo.firstname ? (
           <>
             <span className="spinner-border spinner-border-sm mr-1"></span>
           </>
         ) : (
-          userInfo.firstname
+          userInfo.firstname + userInfo.lastname
         )}
       </div>
       {state.isLoading ? (

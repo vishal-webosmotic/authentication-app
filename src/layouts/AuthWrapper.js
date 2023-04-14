@@ -20,7 +20,7 @@ const AuthWrapper = ({ isAuth = true, children }) => {
     if (!userInfo?.success && userData?.token && isAuth) {
       func();
     }
-  }, [userInfo, func, userData?.token, isAuth]);
+  }, [userInfo?.success, func, userData?.token, isAuth]);
 
   useEffect(() => {
     if (data.isSuccess && data.data) {
