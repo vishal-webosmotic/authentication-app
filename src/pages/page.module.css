@@ -11,7 +11,8 @@
     rgba(253, 101, 133, 1) 0%,
     rgba(255, 211, 165, 1) 90%
   ); */
-  background: linear-gradient(to left, #3e56df, #c75eff);
+  /* background: linear-gradient(to left, #3e56df, #c75eff); */
+  background: #c75eff;
 }
 
 .inputContainer {
@@ -30,6 +31,8 @@
   background-color: #ffffff;
   padding: 10px 30px;
 }
+
+
 
 
 
@@ -134,7 +137,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.error {
+.error,
+.required {
   color: red;
 }
 

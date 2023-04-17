@@ -3,6 +3,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import AuthWrapper from './layouts/AuthWrapper';
+import Chat from './pages/chat/Chat';
 import HomePage from './pages/HomePage';
 import SignIn from './pages/sign-in/SignIn';
 import SignUp from './pages/sign-up/SignUp';
@@ -31,12 +32,22 @@ export const routes = createBrowserRouter([
         <HomePage />
       </AuthWrapper>
     ),
+    // children: [
+    //   {
+    //     path: 'chat',
+    //     element: (
+    //       <AuthWrapper>
+    //         <Chat />
+    //       </AuthWrapper>
+    //     ),
+    //   },
+    // ],
   },
   {
-    path: '/:id',
+    path: '/chat',
     element: (
       <AuthWrapper>
-        <HomePage />
+        <Chat />
       </AuthWrapper>
     ),
   },

@@ -40,6 +40,7 @@ export default function SignUp() {
   ]);
 
   function onSubmit(data) {
+    console.log(data);
     signupUser(data);
     setMessage('');
     // return new Promise((resolve) => {
@@ -48,10 +49,17 @@ export default function SignUp() {
     //   }, 800);
     // });
   }
+
   const registerOptions = {
-    name: {},
-    email: {},
-    password: {},
+    name: { required: 'Enter Username' },
+    email: { required: 'Email is required' },
+    password: {
+      required: 'Password is required',
+      minLength: {
+        value: 8,
+        message: 'Password must have at least 8 characters',
+      },
+    },
   };
 
   return (
@@ -60,62 +68,64 @@ export default function SignUp() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Sign Up</h2>
           <div className={styles.inputContainer}>
-            <label htmlFor="fname">FirstName</label>
+            <label htmlFor="fname">
+              First name <span className={styles.required}>*</span>
+            </label>
             <input
-              {...register('firstname')}
-              name="name"
-              type="text"
-              // placeholder="firstName"
+              {...register('firstname', {
+                required: 'Enter Your First name ',
+              })}
             />
-            <div className="errorMes">
+            <div className={styles.errorMes}>
               {errors?.firstname && errors.firstname.message}
             </div>
           </div>
           <div className={styles.inputContainer}>
-            <label htmlFor="lname">LastName</label>
+            <label htmlFor="lname">
+              Last name <span className={styles.required}>*</span>{' '}
+            </label>
             <input
-              {...register('lastname')}
-              name="name"
-              type="text"
-              // placeholder="lastName"
+              {...register('lastname', {
+                required: 'Enter Your Last name ',
+              })}
             />
-            <div className="errorMes">
+
+            <div className={styles.errorMes}>
               {errors?.lastname && errors.lastname.message}
             </div>
           </div>
           <div className={styles.inputContainer}>
-            <label>Username</label>
-            <input
-              name="name"
-              type="text"
-              {...register('username', registerOptions.name)}
-              // placeholder="userName"
-            />
-            <div className="errorMes">
-              {errors?.name && errors.name.message}
+            <label>
+              Username <span className={styles.required}>*</span>
+            </label>
+            <input {...register('username', registerOptions.name)} />
+            <div className={styles.errorMes}>
+              {errors?.username && errors.username.message}
             </div>
           </div>
           <div className={styles.inputContainer}>
-            <label>Email</label>
+            <label>
+              Email <span className={styles.required}>*</span>
+            </label>
             <input
               type="email"
               name="email"
               {...register('email', registerOptions.email)}
-              // placeholder="email"
             />
-            <div className="errorMes">
+            <div className={styles.errorMes}>
               {errors?.email && errors.email.message}
             </div>
           </div>
           <div className={styles.inputContainer}>
-            <label>Password</label>
+            <label>
+              Password <span className={styles.required}>*</span>
+            </label>
             <input
               type="password"
               name="password"
-              // placeholder="password"
               {...register('password', registerOptions.password)}
             />
-            <div className="errorMes">
+            <div className={styles.errorMes}>
               {errors?.password && errors.password.message}
             </div>
           </div>

@@ -1,7 +1,8 @@
 import './Cardlist.css';
+
 export const CardList = ({ card }) => {
   return (
-    <div className="row row-1">
+    <div className="row">
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">{card.title}</h5>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { CardList } from '../components/card-list/CardList';
 import { useAuth } from '../context/AuthContext';
@@ -13,16 +13,18 @@ import style from './HomePage.module.css';
 
 const HomePage = () => {
   const { removeAuth } = useAuth();
+  const navigate = useNavigate();
+
   const [searchParams, setSearchParams] = useSearchParams({});
   const { userInfo } = useSelector((state) => state.auth);
   const pageNumber = Number(searchParams.get('pageNumber')) || 1;
-  const [screenSize, getDimension] = useState({
+  const [screenSize, setScreenSize] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
 
   const setDimension = () => {
-    getDimension({
+    setScreenSize({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     });
@@ -35,13 +37,8 @@ const HomePage = () => {
       window.removeEventListener('resize', setDimension);
     };
   }, [screenSize]);
+
   const state = useGetPostQuery(pageNumber);
-  // let x = useGetConversationsListQuery();
-  // console.log(x?.data?.data);
-
-  // const list = useGetConversationsQuery();
-  // console.log(list);
-
   const handleLogout = () => {
     removeAuth('access_token');
   };
@@ -56,7 +53,11 @@ const HomePage = () => {
   const handleNextData = () => {
     setSearchParams({ pageNumber: pageNumber + 1 });
   };
-  console.log(screenSize);
+
+  const handleClick = () => {
+    navigate('chat');
+  };
+
   return (
     <>
       <div className="text-center font-weight-bold my-2">
@@ -73,19 +74,35 @@ const HomePage = () => {
           userInfo.lastname
         )}
       </div>
-      {state.isLoading ? (
-        <div className={style.spinner}></div>
+      {state.isFetching ? (
+        // <div className={style.loader_height}>
+        <div>
+          <span
+            className={`spinner-border spinner-border-sm ${style.center_loader}`}
+          ></span>
+        </div>
       ) : (
         <>
-          {screenSize.dynamicWidth > 450 ? (
+          {state?.data?.data?.length === 0 ? (
+            <div className="text-center">No data found</div>
+          ) : screenSize.dynamicWidth > 450 ? (
             <>
-              <div className="table-responsive-sm">
-                <table className={`table-dark text-center ${style.center}`}>
+              <div
+                className={`table-responsive-sm ${
+                  state.isFetching
+                    ? style.content_visible_hidden
+                    : style.content_visible
+                }`}
+              >
+                <table
+                  className={`table-dark table-bordered text-center ${style.center} ${style.tableWidth}
+                    `}
+                >
                   <thead className="mb-2">
-                    <tr>
-                      <th>Description</th>
-                      <th>Title</th>
-                      <th>Id</th>
+                    <tr className={style.tr}>
+                      <th className={style.th}>Description</th>
+                      <th className={style.th}>Title</th>
+                      <th className={style.th}>Id</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -105,26 +122,37 @@ const HomePage = () => {
           )}
         </>
       )}
-
       <div className={style.btn_group}>
         <button
-          disabled={pageNumber === 1 ? true : false}
+          disabled={pageNumber === 1}
           onClick={() => handlePreviousData()}
           className={style.btn_prev}
         >
           Prev
         </button>
         <button
-          disabled={pageNumber === 2 ? true : false}
           onClick={() => handleNextData()}
           className={style.btn_next}
+          disabled={state?.currentData?.data?.length < 5 ? true : false}
         >
           Next
         </button>
       </div>
-      <button className={style.btn} onClick={() => handleLogout()}>
-        Logout
-      </button>
+      {/* className={`spinner-border spinner-border-sm ${style.center_loader}`} */}
+      <div className={style.center1}>
+        <button
+          className={`btn-danger mb-2 mr-2 ${style.btn}`}
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </button>
+        <button
+          className={`btn-primary mb-2 ${style.btn}`}
+          onClick={() => handleClick()}
+        >
+          Chat
+        </button>
+      </div>
     </>
   );
 };

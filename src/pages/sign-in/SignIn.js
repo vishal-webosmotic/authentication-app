@@ -15,7 +15,7 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {
-      email: 'raj@gmail.com',
+      email: 'raj1@gmail.com',
       password: 'abcd@1234',
     },
   });
@@ -68,24 +68,30 @@ export default function SignIn() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign In Form</h1>
         <div className={styles.inputContainer}>
-          <label>Email</label>
+          <label>
+            Email <span className={styles.required}>*</span>
+          </label>
           <input
             type="email"
             name="email"
             {...register('email', registerOptions.email)}
           />
-          <p className="errorMes">{errors?.email && errors.email.message}</p>
+          <div className={styles.errorMes}>
+            {errors?.email && errors.email.message}
+          </div>
         </div>
         <div className={styles.inputContainer}>
-          <label>Password</label>
+          <label>
+            Password <span className={styles.required}>*</span>
+          </label>
           <input
             type="password"
             name="password"
             {...register('password', registerOptions.password)}
           />
-          <p className="errorMes">
+          <div className={styles.errorMes}>
             {errors?.password && errors.password.message}
-          </p>
+          </div>
         </div>
         <div className={styles.error}>{message}</div>
         <button type="submit" className="btn btn-primary mt-2">
