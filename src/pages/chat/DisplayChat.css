@@ -1,3 +1,33 @@
-.table {
-  background-color: red;
+.chatBg {
+  background-color: rgb(85, 175, 202);
 }
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  width: 30%;
+  background: green;
+}
+
+.right {
+  flex-grow: 1;
+  background: blue;
+}
+
+/* .wrapper {
+  position: relative;
+}
+.right,
+.left {
+  width: 50%;
+  position: absolute;
+}
+.right {
+  right: 0;
+}
+.left {
+  left: 0;
+} */

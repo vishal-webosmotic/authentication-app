@@ -67,6 +67,7 @@ export const authApi = createApi({
           method: 'GET',
         };
       },
+      transformResponse: (response) => response.data.data,
     }),
   }),
 });
