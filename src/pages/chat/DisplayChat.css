@@ -1,7 +1,54 @@
-.chatBg {
-  background-color: rgb(85, 175, 202);
+.pointer {
+  cursor: pointer;
 }
 
+.left-chat {
+  margin-left: 50%;
+}
+
+/* .card1 {
+  width: 94px;
+  height: 130px;
+  background-color: #dddbdd;
+}
+
+.skeleton-box {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 70px;
+} */
+.css-dom:empty {
+  width: 364px;
+  height: 212px;
+  border-radius: 6px;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+
+  background-image: radial-gradient(circle 16px, lightgray 99%, transparent 0),
+    linear-gradient(lightgray, lightgray), linear-gradient(lightgray, lightgray),
+    linear-gradient(lightgray, lightgray), linear-gradient(lightgray, lightgray),
+    linear-gradient(#fff, #fff);
+
+  background-size: 32px 32px, 200px 32px, 180px 32px, 230px 16px, 100% 40px,
+    364px 100%;
+
+  background-position: 24px 30px, 66px 30px, 24px 90px, 24px 142px, 0 180px, 0 0;
+}
+
+.chat-skeleton:empty {
+  width: 164px;
+  height: 247px;
+  border-radius: 6px;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+  background-image: linear-gradient(lightgray, lightgray),
+    linear-gradient(lightgray, lightgray), linear-gradient(#fff, #fff);
+  background-size: 125px 66px, 125px 66px, 364px 100%;
+  background-position: 24px 24px, 24px 142px, 0 0;
+}
 .wrapper {
   display: flex;
   height: 100vh;

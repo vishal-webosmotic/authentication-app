@@ -10,7 +10,6 @@ import { useAuth } from '../context/AuthContext';
 import { useGetPostQuery } from '../services/authApi';
 import DisplayRow from './DisplayRow';
 import style from './HomePage.module.css';
-
 const HomePage = () => {
   const { removeAuth } = useAuth();
   const navigate = useNavigate();

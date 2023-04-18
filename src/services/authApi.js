@@ -60,7 +60,7 @@ export const authApi = createApi({
         };
       },
     }),
-    getConversations: builder.query({
+    getConversations: builder.mutation({
       query: (conversationId) => {
         return {
           url: `chats/get-conversation?conversationId=${conversationId}&pageNumber=1&pageSize=3`,
@@ -78,5 +78,5 @@ export const {
   useGetPostQuery,
   useGetUserMutation,
   useGetConversationsListQuery,
-  useGetConversationsQuery,
+  useGetConversationsMutation,
 } = authApi;
