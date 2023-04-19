@@ -32,16 +32,6 @@ export const routes = createBrowserRouter([
         <HomePage />
       </AuthWrapper>
     ),
-    // children: [
-    //   {
-    //     path: 'chat',
-    //     element: (
-    //       <AuthWrapper>
-    //         <Chat />
-    //       </AuthWrapper>
-    //     ),
-    //   },
-    // ],
   },
   {
     path: '/chat',
@@ -50,5 +40,11 @@ export const routes = createBrowserRouter([
         <Chat />
       </AuthWrapper>
     ),
+    children: [
+      {
+        path: '/chat/:id',
+        element: <Chat />,
+      },
+    ],
   },
 ]);

@@ -1,11 +1,14 @@
 import React from 'react';
 
 import './DisplayChat.css';
+import { useNavigate } from 'react-router-dom';
 
-const DisplayChat = ({ data, id, setId, setCurrentUser }) => {
+const DisplayChat = ({ data, setCurrentUser }) => {
+  const navigate = useNavigate('');
+
   const handleConversationId = (id, data) => {
-    setId(id);
     setCurrentUser(data);
+    navigate(`/chat/${id}`);
   };
   return (
     data.chatUser && (

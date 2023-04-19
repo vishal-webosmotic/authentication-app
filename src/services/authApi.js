@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// import { socket } from './socket';
 import getCookie from './utiliti';
 
 export const authApi = createApi({
@@ -68,6 +69,36 @@ export const authApi = createApi({
         };
       },
       transformResponse: (response) => response.data.data,
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        try {
+          console.log(arg);
+          // wait for the initial query to resolve before proceeding
+          await cacheDataLoaded;
+
+          // when data is received from the socket connection to the server,
+          // if it is a message and for the appropriate channel,
+          // update our query result with the received message
+          // const listener = (event) => {
+          //   const data = JSON.parse(event.data);
+
+          //   updateCachedData((draft) => {
+          //     draft.push(data);
+          //   });
+          // };
+
+          // socket.on('getMessage', listener);
+        } catch {
+          // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
+          // in which case `cacheDataLoaded` will throw
+        }
+        // cacheEntryRemoved will resolve when the cache subscription is no longer active
+        await cacheEntryRemoved;
+        // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+        // socket.close();
+      },
     }),
   }),
 });

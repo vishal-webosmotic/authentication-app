@@ -105,6 +105,19 @@ li {
     margin-top: 50px;
   }
 }
+@media only screen and (max-width: 600px) {
+  .chat-list {
+    height: 50vh;
+    overflow-y: scroll;
+  }
+  .col-md-8.col-sm-12 {
+    margin-top: 10px;
+  }
+  .scroll {
+    height: 263px;
+  }
+}
+
 /* 
 @media (max-width: 768px) {
   .scroll {
