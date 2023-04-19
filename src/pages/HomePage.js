@@ -86,31 +86,24 @@ const HomePage = () => {
             <div className="text-center">No data found</div>
           ) : screenSize.dynamicWidth > 450 ? (
             <>
-              <div
-                className={`table-responsive-sm ${
-                  state.isFetching
-                    ? style.content_visible_hidden
-                    : style.content_visible
-                }`}
-              >
-                <table
+              <table className="table-responsive-sm table-dark table-bordered text-center">
+                {/* <table
                   className={`table-dark table-bordered text-center ${style.center} ${style.tableWidth}
-                    `}
-                >
-                  <thead className="mb-2">
-                    <tr className={style.tr}>
-                      <th className={style.th}>Description</th>
-                      <th className={style.th}>Title</th>
-                      <th className={style.th}>Id</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {state.data?.data.map((item) => (
-                      <DisplayRow key={item._id} data={item} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  `}
+                ></table> */}
+                <thead className="mb-2">
+                  <tr className={style.tr}>
+                    <th className={style.th}>Description</th>
+                    <th className={style.th}>Title</th>
+                    <th className={style.th}>Id</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {state.data?.data.map((item) => (
+                    <DisplayRow key={item._id} data={item} />
+                  ))}
+                </tbody>
+              </table>
             </>
           ) : (
             <>

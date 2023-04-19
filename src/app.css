@@ -11,6 +11,7 @@
 */
 * {
   margin: 0;
+  padding: 0;
 }
 /*
   3. Allow percentage-based heights in the application
@@ -27,6 +28,7 @@ body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+      overflow: hidden;
 }
 /*
   6. Improve media defaults
