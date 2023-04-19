@@ -2,16 +2,17 @@ import React from 'react';
 
 import './DisplayChat.css';
 
-const DisplayChat = ({ data, id, setId }) => {
+const DisplayChat = ({ data, id, setId, setCurrentUser }) => {
   const handleConversationId = (id, data) => {
     setId(id);
+    setCurrentUser(data);
   };
   return (
     data.chatUser && (
       <>
         <li className="p-2 border-bottom">
           <div className="d-flex justify-content-between">
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row chat_user">
               <img
                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
                 alt="avatar"

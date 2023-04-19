@@ -131,7 +131,9 @@ form .register-form {
 }
 
 body {
-  background: linear-gradient(to left, #3e56df, #c75eff);
+  /* background: linear-gradient(to left, #3e56df, #c75eff); */
+  /* background: linear-gradient(to left, #3e56df, #c75eff); */
+  background-color: #e2dede;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

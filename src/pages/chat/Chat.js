@@ -11,7 +11,7 @@ import {
   MDBBtn,
   MDBTypography,
   // MDBTextArea,
-  MDBCardFooter,
+  // MDBCardFooter,
   MDBInputGroup,
 } from 'mdb-react-ui-kit';
 import { useSelector } from 'react-redux';
@@ -29,25 +29,25 @@ export default function Chat() {
 
   const conversationsList = useGetConversationsListQuery();
   const [id, setId] = useState();
-  // const [currentUserData, setCurrentUserData] = useState();
+  const [currentUserData, setCurrentUserData] = useState();
 
   const [state, res] = useGetConversationsMutation();
-  let x;
+
   function handleClick() {
-    x = inputRef.current.value;
-    console.log('lien 37', x);
+    const message = {
+      receiverId: currentUserData.chatUser._id,
+      content: inputRef.current.value,
+    };
+    socket.emit('sendMessage', message);
     inputRef.current.value = '';
   }
 
   useEffect(() => {
-    socket.on('sendMessage', (obj) => {});
     if (id) {
       state(id);
     }
   }, [id, state]);
 
-  // const checker = userInfo._id === currentUserData?.chatUser?._id;
-  // console.log(checker, userInfo._id, currentUserData?.chatUser?._id);
   return (
     <MDBContainer fluid className="py-5">
       <MDBRow>
@@ -61,7 +61,7 @@ export default function Chat() {
             <>
               <MDBCard>
                 <MDBCardBody>
-                  <MDBTypography listUnStyled className="mb-0">
+                  <MDBTypography listUnStyled className="mb-0 ">
                     {conversationsList?.data?.data.map((item) => {
                       return (
                         <DisplayChat
@@ -69,7 +69,7 @@ export default function Chat() {
                           data={item}
                           id={id}
                           setId={setId}
-                          // setCurrentUser={setCurrentUserData}
+                          setCurrentUser={setCurrentUserData}
                         />
                       );
                     })}
@@ -81,50 +81,51 @@ export default function Chat() {
         </MDBCol>
 
         <MDBCol md="6" lg="7" xl="8">
-          {res.isLoading ? (
-            <div className="chat-skeleton"></div>
-          ) : (
-            res.isSuccess &&
-            res.data.map((item) => {
-              console.log('line 89', item);
-              return (
-                <MDBTypography key={item._id} listUnStyled>
-                  <li className="d-flex justify-content-between mb-4">
-                    <MDBCard
-                      className={userInfo._id === item.senderId && 'left-chat'}
-                    >
-                      {/* <MDBCardHeader className="d-flex justify-content-between p-3">
+          <div className="scroll">
+            {res.isLoading ? (
+              <div className="chat-skeleton"></div>
+            ) : (
+              res.isSuccess &&
+              res.data.map((item) => {
+                return (
+                  <MDBTypography className="scroll" key={item._id} listUnStyled>
+                    <li className="d-flex justify-content-between mb-4">
+                      <MDBCard
+                        className={
+                          userInfo._id === item.senderId && 'left-chat'
+                        }
+                      >
+                        {/* <MDBCardHeader className="d-flex justify-content-between p-3">
                         <p className="fw-bold mb-0">
                           {currentUserData.chatUser.firstname}
                         </p>
                       </MDBCardHeader> */}
-                      <MDBCardBody>
-                        <p className="mb-0">{item.content}</p>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </li>
-                </MDBTypography>
-              );
-            })
-          )}
+                        <MDBCardBody>
+                          <p className="mb-0">{item.content}</p>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </li>
+                  </MDBTypography>
+                );
+              })
+            )}
+          </div>
           {res.isSuccess && (
-            <MDBCardFooter className="text-muted d-flex justify-content-start align-items-center p-3">
-              <MDBInputGroup className="mb-0">
-                <input
-                  className="form-control"
-                  placeholder="Type message"
-                  type="text"
-                  ref={inputRef}
-                />
-                <MDBBtn
-                  onClick={handleClick}
-                  color="warning"
-                  style={{ paddingTop: '.55rem' }}
-                >
-                  Button
-                </MDBBtn>
-              </MDBInputGroup>
-            </MDBCardFooter>
+            <MDBInputGroup className="mb-0 mt-2">
+              <input
+                className="form-control"
+                placeholder="Type message"
+                type="text"
+                ref={inputRef}
+              />
+              <MDBBtn
+                onClick={handleClick}
+                color="warning"
+                style={{ paddingTop: '.55rem' }}
+              >
+                Send
+              </MDBBtn>
+            </MDBInputGroup>
           )}
         </MDBCol>
       </MDBRow>
