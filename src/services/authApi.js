@@ -61,43 +61,25 @@ export const authApi = createApi({
         };
       },
     }),
-    getConversations: builder.mutation({
-      query: (conversationId) => {
+    getConversations: builder.query({
+      query: ({ page, id }) => {
         return {
-          url: `chats/get-conversation?conversationId=${conversationId}&pageNumber=1&pageSize=10`,
+          url: `chats/get-conversation?conversationId=${id}&pageNumber=${page}&pageSize=20`,
           method: 'GET',
         };
       },
       transformResponse: (response) => response.data.data,
-      async onCacheEntryAdded(
-        arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
-      ) {
-        try {
-          console.log(arg);
-          // wait for the initial query to resolve before proceeding
-          await cacheDataLoaded;
-
-          // when data is received from the socket connection to the server,
-          // if it is a message and for the appropriate channel,
-          // update our query result with the received message
-          // const listener = (event) => {
-          //   const data = JSON.parse(event.data);
-
-          //   updateCachedData((draft) => {
-          //     draft.push(data);
-          //   });
-          // };
-
-          // socket.on('getMessage', listener);
-        } catch {
-          // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
-          // in which case `cacheDataLoaded` will throw
-        }
-        // cacheEntryRemoved will resolve when the cache subscription is no longer active
-        await cacheEntryRemoved;
-        // perform cleanup steps once the `cacheEntryRemoved` promise resolves
-        // socket.close();
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        console.log(currentCache, newItems);
+        currentCache.push(...newItems);
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        console.log(currentArg, previousArg);
+        return currentArg !== previousArg;
       },
     }),
   }),
@@ -109,5 +91,5 @@ export const {
   useGetPostQuery,
   useGetUserMutation,
   useGetConversationsListQuery,
-  useGetConversationsMutation,
+  useLazyGetConversationsQuery,
 } = authApi;

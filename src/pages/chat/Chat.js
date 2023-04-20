@@ -1,101 +1,93 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {
   useGetConversationsListQuery,
-  useGetConversationsMutation,
+  useLazyGetConversationsQuery,
 } from '../../services/authApi';
 import { socket } from '../../services/socket';
-import { setConversionList } from '../../store/authSlice';
+// import { setConversionList } from '../../store/authSlice';
+import ChatContainer from './ChatContainer';
 import DisplayChat from './DisplayChat';
 import './DisplayChat.css';
 
 export default function Chat() {
   const inputRef = useRef(null);
+  const scrollRef = useRef(null);
   const { userInfo } = useSelector((state) => state.auth);
-  // const { payload } = conversionList;
-  // console.log('lien 23', payload?.payload);
   const { id } = useParams();
-  const dispatch = useDispatch();
-
   const conversationsList = useGetConversationsListQuery();
   const [currentUserData, setCurrentUserData] = useState();
-  const [state, res] = useGetConversationsMutation();
+
+  const [page, setPage] = useState(1);
+  const [func, res, currentIdObj] = useLazyGetConversationsQuery();
+  console.log('line 30', res);
+
   function handleClick() {
+    console.log(currentUserData);
     const message = {
-      receiverId: currentUserData.chatUser._id,
+      receiverId: currentUserData?.chatUser._id,
       content: inputRef.current.value,
     };
     socket.emit('sendMessage', message);
     inputRef.current.value = '';
   }
 
-  useEffect(() => {
-    socket.on('getMessage', () => {
-      console.log('getMessage');
-    });
-    if (id) {
-      state(id);
+  const updatePosition = () => {
+    const { clientHeight, scrollTop, scrollHeight } = scrollRef.current;
+    const lastPositionOfScroll = clientHeight + Math.abs(scrollTop);
+    // console.log(clientHeight, scrollTop, scrollHeight);
+    if (lastPositionOfScroll === scrollHeight) {
+      setPage(page + 1);
     }
-  }, [id, state]);
+  };
 
   useEffect(() => {
-    if (res.isSuccess && res.data) {
-      dispatch(setConversionList(res.data));
+    if (id) {
+      // if (id == currentIdObj?.lastArg.id) {
+      func({ page, id });
+      // }
+      if (!currentUserData) {
+        let matchingData = conversationsList.data?.data.find((item) => {
+          return item.conversationId.toString() === id.toString();
+        });
+        setCurrentUserData(matchingData);
+      }
     }
-  }, [dispatch, res?.data, res?.isSuccess]);
+  }, [conversationsList.data?.data, currentUserData, func, id, page]);
 
   return (
     <Container fluid>
       <Row>
         <Col sm={12} md={4} className="bg chat-list">
           <h5>Member</h5>
-          {conversationsList.isLoading ? (
-            <div className="css-dom"></div>
-          ) : (
-            conversationsList?.data?.data.map((item) => {
-              return (
-                <DisplayChat
-                  key={item.chatUser._id + item.conversationId}
-                  data={item}
-                  setCurrentUser={setCurrentUserData}
-                />
-              );
-            })
-          )}
+          {conversationsList.isLoading
+            ? // <div className="css-dom"></div>
+              'Loading'
+            : conversationsList?.data?.data.map((item) => {
+                return (
+                  <DisplayChat
+                    key={item.chatUser._id + item?.conversationId * 100}
+                    data={item}
+                    setCurrentUser={setCurrentUserData}
+                  />
+                );
+              })}
         </Col>
         <Col sm={12} md={8}>
           {res.isLoading || !userInfo.lastname ? (
             <div className="text-center">No Chat Found</div>
           ) : (
             <>
-              <div className="scroll">
-                {res.isSuccess &&
-                  res.data.map((item) => {
-                    return (
-                      <div key={item._id}>
-                        <li className="d-flex justify-content-between mb-4">
-                          <div
-                            className={
-                              userInfo?._id === item.senderId
-                                ? 'ml-auto mr-2'
-                                : ''
-                            }
-                          >
-                            <div className="mb-0 message-blue">
-                              {item.content}
-                            </div>
-                          </div>
-                        </li>
-                      </div>
-                    );
-                  })}
+              <div className="scroll" onScroll={updatePosition} ref={scrollRef}>
+                {/* <div className="scroll"> */}
+                <ChatContainer res={res} userInfo={userInfo} />
               </div>
               {res.isSuccess && (
                 <div className="d-flex mb-2 mt-2">

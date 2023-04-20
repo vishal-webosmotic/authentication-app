@@ -24,9 +24,9 @@
 }
 
 .scroll {
-  max-height: 700px;
+  max-height: 800px;
   overflow-y: auto;
-  height: 570px;
+  height: 720px;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -100,7 +100,7 @@ li {
   background: blue;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .col-md-8 {
     margin-top: 50px;
   }
@@ -116,7 +116,7 @@ li {
   .scroll {
     height: 263px;
   }
-}
+} */
 
 /* 
 @media (max-width: 768px) {
