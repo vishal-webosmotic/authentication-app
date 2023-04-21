@@ -86,24 +86,26 @@ const HomePage = () => {
             <div className="text-center">No data found</div>
           ) : screenSize.dynamicWidth > 450 ? (
             <>
-              <table className="table-responsive-sm table-dark table-bordered text-center">
-                {/* <table
-                  className={`table-dark table-bordered text-center ${style.center} ${style.tableWidth}
+              {/* <table className="table-responsive-sm table-dark table-bordered text-center"> */}
+              <div className={style.table_wrapper}>
+                <table
+                  className={`table-responsive-sm table-dark table-bordered text-center ${style.center} ${style.tableWidth}
                   `}
-                ></table> */}
-                <thead className="mb-2">
-                  <tr className={style.tr}>
-                    <th className={style.th}>Description</th>
-                    <th className={style.th}>Title</th>
-                    <th className={style.th}>Id</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {state.data?.data.map((item) => (
-                    <DisplayRow key={item._id} data={item} />
-                  ))}
-                </tbody>
-              </table>
+                >
+                  <thead className="mb-2">
+                    <tr className={style.tr}>
+                      <th className={style.th}>Description</th>
+                      <th className={style.th}>Title</th>
+                      <th className={style.th}>Id</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {state.data?.data.map((item) => (
+                      <DisplayRow key={item._id} data={item} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </>
           ) : (
             <>
@@ -130,8 +132,10 @@ const HomePage = () => {
           Next
         </button>
       </div>
-      {/* className={`spinner-border spinner-border-sm ${style.center_loader}`} */}
-      <div className={style.center1}>
+
+      {/* <div className={style.center1}> */}
+
+      <div className={style.btn_center}>
         <button
           className={`btn-danger mb-2 mr-2 ${style.btn}`}
           onClick={() => handleLogout()}

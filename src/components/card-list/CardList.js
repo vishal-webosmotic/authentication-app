@@ -1,8 +1,9 @@
-import './Cardlist.css';
+// import './Cardlist.css';
+import style from './Cardlist.module.css';
 
 export const CardList = ({ card }) => {
   return (
-    <div className="row">
+    <div className={style.row}>
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">{card.title}</h5>

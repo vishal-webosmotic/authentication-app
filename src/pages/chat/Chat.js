@@ -90,7 +90,7 @@ export default function Chat() {
           <h5>Member</h5>
           {conversationsList.isLoading
             ? // <div className="css-dom"></div>
-              'Loading'
+              'Loading....'
             : conversationsList?.data?.data.map((item) => {
                 return (
                   <DisplayChat
@@ -102,28 +102,38 @@ export default function Chat() {
               })}
         </Col>
         <Col sm={12} md={8}>
-          {res.isLoading || !userInfo.lastname ? (
-            <div className="text-center">No Chat Found</div>
-          ) : (
-            <>
-              <div className="scroll" onScroll={updatePosition} ref={scrollRef}>
-                <ChatContainer res={res} userInfo={userInfo} />
-              </div>
-              {res.isSuccess && (
-                <div className="d-flex mb-2 mt-2">
-                  <input
-                    className="form-control"
-                    placeholder="Type message"
-                    type="text"
-                    ref={inputRef}
-                  />
-                  <Button onClick={handleClick} className="pt-2 ml-1">
-                    Send
-                  </Button>
+          <>
+            {/* <div className="profile_name">hii</div> */}
+            {console.log(res)}
+            {res.isLoading || !userInfo.lastname ? (
+              <div className="text-center">No Chat Found</div>
+            ) : (
+              <>
+                <div className="container_border">
+                  <div
+                    className="scroll"
+                    onScroll={updatePosition}
+                    ref={scrollRef}
+                  >
+                    <ChatContainer res={res} userInfo={userInfo} />
+                  </div>
                 </div>
-              )}
-            </>
-          )}
+                {res.isSuccess && (
+                  <div className="d-flex mb-2 mt-2">
+                    <input
+                      className="form-control"
+                      placeholder="Type message"
+                      type="text"
+                      ref={inputRef}
+                    />
+                    <Button onClick={handleClick} className="pt-2 ml-1">
+                      Send
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </>
         </Col>
       </Row>
     </Container>

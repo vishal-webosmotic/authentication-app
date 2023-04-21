@@ -12,7 +12,8 @@
     rgba(255, 211, 165, 1) 90%
   ); */
   /* background: linear-gradient(to left, #3e56df, #c75eff); */
-  background: #c75eff;
+  /* background: #c75eff; */
+  background: #c6c6c6;
 }
 
 .inputContainer {

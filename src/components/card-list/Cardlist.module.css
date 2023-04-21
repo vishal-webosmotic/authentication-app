@@ -1,4 +1,4 @@
-.card_container {
+/* .card_container {
   border: solid 3px #d3d3de;
   text-align: center;
 }
@@ -11,4 +11,24 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+} */
+
+.row {
+  /* margin-bottom: 30px; */
+  /* margin-top: 20px; */
+  margin: 10px auto;
+  display: flex;
+  width: 70vw;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .card_row {
+  width: auto;
+} */
+
+.card-title {
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+  text-align: center;
 }

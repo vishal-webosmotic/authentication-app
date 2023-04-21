@@ -64,9 +64,9 @@ export default function SignIn() {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Sign In Form</h1>
+        <h1>Sign In</h1>
         <div className={styles.inputContainer}>
           <label>
             Email <span className={styles.required}>*</span>
