@@ -26,9 +26,9 @@ export default function Chat() {
   const [currentUserData, setCurrentUserData] = useState();
 
   const [page, setPage] = useState(1);
-  const [func, res, currentIdObj] = useLazyGetConversationsQuery();
-  console.log('line 30', res);
+  const [getConversationList, res] = useLazyGetConversationsQuery();
 
+  // console.log('line 31', res);
   function handleClick() {
     console.log(currentUserData);
     const message = {
@@ -50,9 +50,14 @@ export default function Chat() {
 
   useEffect(() => {
     if (id) {
-      // if (id == currentIdObj?.lastArg.id) {
-      func({ page, id });
+      // if (data.data.totalPage == currentIdObj?.lastArg.page) {
+      getConversationList({ page, id });
       // }
+    }
+  }, [getConversationList, id, page]);
+
+  useEffect(() => {
+    if (id) {
       if (!currentUserData) {
         let matchingData = conversationsList.data?.data.find((item) => {
           return item.conversationId.toString() === id.toString();
@@ -60,7 +65,27 @@ export default function Chat() {
         setCurrentUserData(matchingData);
       }
     }
-  }, [conversationsList.data?.data, currentUserData, func, id, page]);
+  }, [
+    conversationsList.data?.data,
+    currentUserData,
+    getConversationList,
+    id,
+    page,
+  ]);
+
+  // useEffect(() => {
+  //   if (res?.isSuccess) {
+  //     console.log(page, res);
+  //   }
+  //   // if (!res.isSuccess) {
+  //   //   return;
+  //   // }
+  //   // console.log()
+  //   // if (page - 1 == res?.totalPage) {
+  //   //   console.log('line 56');
+  //   //   // setPage(1);
+  //   // }
+  // }, [page, res, res?.isSuccess]);
 
   return (
     <Container fluid>
@@ -86,7 +111,6 @@ export default function Chat() {
           ) : (
             <>
               <div className="scroll" onScroll={updatePosition} ref={scrollRef}>
-                {/* <div className="scroll"> */}
                 <ChatContainer res={res} userInfo={userInfo} />
               </div>
               {res.isSuccess && (

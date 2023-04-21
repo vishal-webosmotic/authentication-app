@@ -68,13 +68,24 @@ export const authApi = createApi({
           method: 'GET',
         };
       },
-      transformResponse: (response) => response.data.data,
+      // transformResponse: (response) => response.data.data,
+      transformResponse: (response) => response.data,
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
-      merge: (currentCache, newItems) => {
-        console.log(currentCache, newItems);
-        currentCache.push(...newItems);
+      merge: (currentCache, newItems, { arg }) => {
+        if (!newItems.data.length) {
+          return;
+        }
+        currentCache.data.push(...newItems.data);
+        const conversationId = newItems?.data[0];
+        console.log(
+          conversationId.conversationId === arg.id,
+          conversationId.conversationId,
+          arg.id
+        );
+        console.log(typeof arg);
+        console.log(newItems, arg);
       },
       // Refetch when the page arg changes
       forceRefetch({ currentArg, previousArg }) {

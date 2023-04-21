@@ -1,10 +1,11 @@
 import React from 'react';
 
 const ChatContainer = ({ res, userInfo }) => {
+  // console.log(res);
   return (
     <>
       {res.isSuccess &&
-        res.data.map((item) => {
+        res.data.data.map((item) => {
           return (
             <div key={item._id + item.conversationId + item.senderId}>
               <li className="d-flex justify-content-between mb-4">
