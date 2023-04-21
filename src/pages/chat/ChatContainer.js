@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ChatContainer = ({ res, userInfo }) => {
-  // console.log(res);
   return (
     <>
       {res.isSuccess &&

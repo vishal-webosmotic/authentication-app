@@ -12,7 +12,7 @@ import store from './store/store';
 function App() {
   useEffect(() => {
     socket.on('connect', () => {
-      console.log('connected');
+      // console.log('connected');
     });
   });
   return (

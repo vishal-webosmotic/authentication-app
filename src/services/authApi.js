@@ -77,19 +77,14 @@ export const authApi = createApi({
         if (!newItems.data.length) {
           return;
         }
+        const conversationId = currentCache?.data[0];
+
+        if (conversationId.conversationId !== arg.id) {
+          return newItems;
+        }
         currentCache.data.push(...newItems.data);
-        const conversationId = newItems?.data[0];
-        console.log(
-          conversationId.conversationId === arg.id,
-          conversationId.conversationId,
-          arg.id
-        );
-        console.log(typeof arg);
-        console.log(newItems, arg);
       },
-      // Refetch when the page arg changes
-      forceRefetch({ currentArg, previousArg }) {
-        console.log(currentArg, previousArg);
+      forceRefetch({ currentArg, previousArg, state, endpointState }) {
         return currentArg !== previousArg;
       },
     }),

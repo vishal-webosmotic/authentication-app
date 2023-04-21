@@ -40,7 +40,6 @@ export default function SignUp() {
   ]);
 
   function onSubmit(data) {
-    console.log(data);
     signupUser(data);
     setMessage('');
     // return new Promise((resolve) => {

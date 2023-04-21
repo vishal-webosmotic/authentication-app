@@ -25,12 +25,17 @@ export default function Chat() {
   const conversationsList = useGetConversationsListQuery();
   const [currentUserData, setCurrentUserData] = useState();
 
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
+  // const page = useRef(1);
+
   const [getConversationList, res] = useLazyGetConversationsQuery();
 
-  // console.log('line 31', res);
+  // console.log(lastPromiseInfo);
+  const currentUserDetails = useRef({
+    page: 1,
+  });
+
   function handleClick() {
-    console.log(currentUserData);
     const message = {
       receiverId: currentUserData?.chatUser._id,
       content: inputRef.current.value,
@@ -39,22 +44,18 @@ export default function Chat() {
     inputRef.current.value = '';
   }
 
-  const updatePosition = () => {
-    const { clientHeight, scrollTop, scrollHeight } = scrollRef.current;
-    const lastPositionOfScroll = clientHeight + Math.abs(scrollTop);
-    // console.log(clientHeight, scrollTop, scrollHeight);
-    if (lastPositionOfScroll === scrollHeight) {
-      setPage(page + 1);
-    }
-  };
-
   useEffect(() => {
-    if (id) {
-      // if (data.data.totalPage == currentIdObj?.lastArg.page) {
-      getConversationList({ page, id });
-      // }
+    // console.log('useeffect 1');
+    if (!id) {
+      return;
     }
-  }, [getConversationList, id, page]);
+    currentUserDetails.current['conversationId'] = id;
+    currentUserDetails.current.page = 1;
+    // if (res) {
+    //   res = [];
+    // }
+    getConversationList({ page: currentUserDetails.current.page, id });
+  }, [getConversationList, id]);
 
   useEffect(() => {
     if (id) {
@@ -65,27 +66,22 @@ export default function Chat() {
         setCurrentUserData(matchingData);
       }
     }
-  }, [
-    conversationsList.data?.data,
-    currentUserData,
-    getConversationList,
-    id,
-    page,
-  ]);
+    // console.log('useeffect 2');
+  }, [conversationsList.data?.data, currentUserData, id]);
 
-  // useEffect(() => {
-  //   if (res?.isSuccess) {
-  //     console.log(page, res);
-  //   }
-  //   // if (!res.isSuccess) {
-  //   //   return;
-  //   // }
-  //   // console.log()
-  //   // if (page - 1 == res?.totalPage) {
-  //   //   console.log('line 56');
-  //   //   // setPage(1);
-  //   // }
-  // }, [page, res, res?.isSuccess]);
+  const updatePosition = () => {
+    const { clientHeight, scrollTop, scrollHeight } = scrollRef.current;
+    const lastPositionOfScroll = clientHeight + Math.abs(scrollTop);
+    if (
+      lastPositionOfScroll === scrollHeight &&
+      !(res?.data?.totalPage === currentUserDetails.current.page)
+    ) {
+      // page.current = page.current + 1;
+      currentUserDetails.current.page = currentUserDetails.current.page + 1;
+      getConversationList({ page: currentUserDetails.current.page, id });
+    }
+  };
+  // console.log(currentUserDetails);
 
   return (
     <Container fluid>
