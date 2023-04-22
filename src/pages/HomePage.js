@@ -120,13 +120,13 @@ const HomePage = () => {
         <button
           disabled={pageNumber === 1}
           onClick={() => handlePreviousData()}
-          className={style.btn_prev}
+          className={`${style.button} ${style.btn_prev}`}
         >
           Prev
         </button>
         <button
           onClick={() => handleNextData()}
-          className={style.btn_next}
+          className={`${style.button} ${style.btn_next} `}
           disabled={state?.currentData?.data?.length < 5 ? true : false}
         >
           Next
@@ -137,13 +137,13 @@ const HomePage = () => {
 
       <div className={style.btn_center}>
         <button
-          className={`btn-danger mb-2 mr-2 ${style.btn}`}
+          className={`btn-danger mb-2 mr-2 ${style.btn} button`}
           onClick={() => handleLogout()}
         >
           Logout
         </button>
         <button
-          className={`btn-primary mb-2 ${style.btn}`}
+          className={`btn-primary mb-2 ${style.btn} button`}
           onClick={() => handleClick()}
         >
           Chat

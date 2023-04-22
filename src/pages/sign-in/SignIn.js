@@ -94,7 +94,10 @@ export default function SignIn() {
           </div>
         </div>
         <div className={styles.error}>{message}</div>
-        <button type="submit" className="btn btn-primary mt-2">
+        <button
+          type="submit"
+          className={`btn btn-primary mt-2 ${styles.button}`}
+        >
           {res.isLoading && (
             <span className="spinner-border spinner-border-sm mr-1"></span>
           )}

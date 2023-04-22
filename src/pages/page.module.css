@@ -86,7 +86,7 @@ form button {
   margin-top: 20px;
 }
 
-button {
+.button {
   border: 0;
   padding: 15px;
   font-size: 14px;

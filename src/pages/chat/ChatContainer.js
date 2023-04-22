@@ -3,6 +3,9 @@ import React from 'react';
 const ChatContainer = ({ res, userInfo }) => {
   return (
     <>
+      {res.isFetching && (
+        <div className="history_loader spinner-border spinner-border-sm"></div>
+      )}
       {res.isSuccess &&
         res.data.data.map((item) => {
           return (
@@ -13,7 +16,7 @@ const ChatContainer = ({ res, userInfo }) => {
                     userInfo?._id === item.senderId ? 'ml-auto mr-2' : 'ml-2'
                   }
                 >
-                  <div className="mb-0 message-blue">{item.content}</div>
+                  <div className="mb-0 message">{item.content}</div>
                 </div>
               </li>
             </div>

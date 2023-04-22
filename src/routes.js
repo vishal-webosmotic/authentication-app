@@ -10,6 +10,14 @@ import SignUp from './pages/sign-up/SignUp';
 
 export const routes = createBrowserRouter([
   {
+    path: '/',
+    element: (
+      <AuthWrapper>
+        <HomePage />
+      </AuthWrapper>
+    ),
+  },
+  {
     path: '/signin',
     element: (
       <AuthWrapper isAuth={false}>
@@ -25,14 +33,7 @@ export const routes = createBrowserRouter([
       </AuthWrapper>
     ),
   },
-  {
-    path: '/',
-    element: (
-      <AuthWrapper>
-        <HomePage />
-      </AuthWrapper>
-    ),
-  },
+
   {
     path: '/chat',
     element: (

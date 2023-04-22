@@ -15,25 +15,22 @@ const DisplayChat = ({ data, setCurrentUser }) => {
   return (
     data.chatUser && (
       <>
-        <li className="p-2 border-bottom">
-          <div
-            className={`d-flex justify-content-between ${
-              data.conversationId === id && 'current_user'
-            }`}
-          >
+        <li
+          className={`p-2 border-bottom  ${
+            data.conversationId === id && 'current_user'
+          }`}
+        >
+          <div className="d-flex justify-content-between">
             <div className="d-flex flex-row chat_user">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
-                alt="avatar"
-                className="rounded-circle d-flex align-self-center me-3 shadow-1-strong img_margin"
-                width="60"
-              />
+              <div className="circle">
+                <span>{data.chatUser.firstname.charAt(0).toUpperCase()}</span>
+              </div>
               <div
                 className="pt-1 pointer"
                 onClick={() => handleConversationId(data.conversationId, data)}
               >
                 <p className="fw-bold mb-0">{data.chatUser.firstname}</p>
-                <p className="small text-muted">{data.chatUser.email}</p>
+                <p className="small mb-0">{data.chatUser.email}</p>
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 import { useAuth } from '../../context/AuthContext';
 
-function MyNavbar() {
+function Header() {
   const { removeAuth } = useAuth();
 
   const handleLogout = () => {
@@ -37,4 +37,4 @@ function MyNavbar() {
   );
 }
 
-export default MyNavbar;
+export default Header;

@@ -4,7 +4,7 @@ import './navbar.css';
 
 import { NavLink, Outlet } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar1 = () => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -71,4 +71,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar1;
