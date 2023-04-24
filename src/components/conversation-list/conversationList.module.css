@@ -15,14 +15,6 @@
   height: 30px;
 }
 
-.user_list {
-  border: 1px solid red;
-  height: 80vh;
-  overflow-y: auto;
-  padding: 5px;
-  border-radius: 8px;
-}
-
 .circle {
   background: lightblue;
   border-radius: 50%;
@@ -54,11 +46,9 @@
   margin: 50vh 30vw;
 }
 
-.active_user_header {
-  /* position: absolute; */
-  /* left: 0; */
+.chat_header {
   margin-bottom: 10px;
-  background: rgb(238, 195, 195);
+  background: #fbfcf8;
   width: 100%;
   height: 10vh;
   display: flex;
@@ -80,7 +70,6 @@
 .history_loader {
   position: absolute;
   left: 50%;
-  /* transform: translate(-50%, 0); */
   top: 0;
 }
 
@@ -141,12 +130,6 @@ li {
   height: 100vh;
 }
 
-/* .card1 {
-  width: 94px;
-  height: 130px;
-  background-color: #dddbdd;
-}
-
 .skeleton-box {
   display: inline-block;
   height: 1em;
@@ -154,7 +137,7 @@ li {
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.2);
   width: 70px;
-} */
+}
 .css-dom:empty {
   width: 364px;
   height: 212px;
@@ -199,42 +182,8 @@ li {
   background: blue;
 }
 
-/* @media (min-width: 768px) {
-  .col-md-8 {
-    margin-top: 50px;
-  }
-}
 @media only screen and (max-width: 600px) {
-  .chat-list {
-    height: 50vh;
-    overflow-y: scroll;
-  }
-  .col-md-8.col-sm-12 {
-    margin-top: 10px;
-  }
   .scroll {
-    height: 263px;
+    height: 30vh;
   }
-} */
-
-/* 
-@media (max-width: 768px) {
-  .scroll {
-    height: 500px;
-  }
-} */
-
-/* .wrapper {
-  position: relative;
 }
-.right,
-.left {
-  width: 50%;
-  position: absolute;
-}
-.right {
-  right: 0;
-}
-.left {
-  left: 0;
-} */

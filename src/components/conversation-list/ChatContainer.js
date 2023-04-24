@@ -1,10 +1,14 @@
 import React from 'react';
 
+import styles from './conversationList.module.css';
+
 const ChatContainer = ({ res, userInfo }) => {
   return (
     <>
       {res.isFetching && (
-        <div className="history_loader spinner-border spinner-border-sm"></div>
+        <div
+          className={`${styles.history_loader} spinner-border spinner-border-sm`}
+        ></div>
       )}
       {res.isSuccess &&
         res.data.data.map((item) => {
@@ -16,7 +20,7 @@ const ChatContainer = ({ res, userInfo }) => {
                     userInfo?._id === item.senderId ? 'ml-auto mr-2' : 'ml-2'
                   }
                 >
-                  <div className="mb-0 message">{item.content}</div>
+                  <div className={`mb-0 ${styles.message}`}>{item.content}</div>
                 </div>
               </li>
             </div>
