@@ -74,7 +74,6 @@ const HomePage = () => {
         )}
       </div>
       {state.isFetching ? (
-        // <div className={style.loader_height}>
         <div>
           <span
             className={`spinner-border spinner-border-sm ${style.center_loader}`}

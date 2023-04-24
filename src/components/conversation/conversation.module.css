@@ -1,5 +1,5 @@
 .member {
-  height: 12vh;
+  /* height: 12vh; */
   display: flex;
   align-items: center;
   position: relative;
@@ -7,7 +7,7 @@
 
 .user_list {
   border: 1px solid #bbbbbb;
-  height: 82vh;
+  /* height: 82vh; */
   overflow-y: auto;
   padding: 5px;
   border-radius: 8px;
@@ -43,7 +43,7 @@
 }
 
 .user {
-  position: absolute;
+  /* position: absolute; */
   margin-left: 14px;
   width: 100%;
   font-size: x-large;
@@ -54,14 +54,18 @@ li {
 }
 
 .chat_list {
-  height: 100vh;
+  /* height: 100vh; */
+}
+
+.parents_height {
+  height: inherit;
 }
 
 @media only screen and (max-width: 600px) {
   .user_list {
-    height: 30vh;
+    /* height: 30vh; */
   }
   .chat_list {
-    height: 50vh;
+    /* height: 50vh; */
   }
 }

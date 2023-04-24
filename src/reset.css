@@ -28,7 +28,7 @@ body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-      overflow: hidden;
+  overflow: hidden;
 }
 /*
   6. Improve media defaults
@@ -68,4 +68,5 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+  height: 100vh;
 }

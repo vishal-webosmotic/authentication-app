@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
-import './app.css';
+import './reset.css';
 
 import { routes } from './routes';
 import { socket } from './services/socket';

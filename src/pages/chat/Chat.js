@@ -10,8 +10,8 @@ import ChatUser from './../../components/conversation/ChatUser';
 
 export default function Chat() {
   return (
-    <Container fluid>
-      <Row>
+    <Container className={styles.parents_height} fluid>
+      <Row className={styles.parents_height}>
         <Col className={`${styles.chat_list} ${styles.bg}`} sm={12} md={4}>
           <ChatUser />
         </Col>
