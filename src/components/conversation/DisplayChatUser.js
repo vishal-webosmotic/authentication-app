@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './conversation.module.css';
 
-const DisplayChat = ({ data }) => {
+const DisplayChatUser = ({ data }) => {
   const navigate = useNavigate('');
   const { id } = useParams();
 
@@ -14,7 +14,10 @@ const DisplayChat = ({ data }) => {
 
   return (
     data.chatUser && (
-      <div>
+      <div
+        className={styles.cursor_pt}
+        onClick={() => handleConversationId(data.conversationId)}
+      >
         <li
           className={`p-2 border-bottom  ${
             data.conversationId === id && styles.current_user
@@ -25,10 +28,7 @@ const DisplayChat = ({ data }) => {
               <div className={styles.circle}>
                 <span>{data.chatUser.firstname.charAt(0).toUpperCase()}</span>
               </div>
-              <div
-                className="pt-1 pointer"
-                onClick={() => handleConversationId(data.conversationId)}
-              >
+              <div className="pt-1 pointer">
                 <p className="fw-bold mb-0">{data.chatUser.firstname}</p>
                 <p className="small mb-0">{data.chatUser.email}</p>
               </div>
@@ -40,4 +40,4 @@ const DisplayChat = ({ data }) => {
   );
 };
 
-export default DisplayChat;
+export default DisplayChatUser;

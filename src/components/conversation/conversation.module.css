@@ -1,16 +1,29 @@
 .member {
-  /* height: 12vh; */
+  flex: 0 0 auto;
+}
+
+.cursor_pt {
+  cursor: pointer;
+}
+
+.btn_margin {
+  margin: auto;
+}
+
+.chat_user_container {
   display: flex;
-  align-items: center;
-  position: relative;
+  flex-direction: column;
+  padding: 15px;
 }
 
 .user_list {
   border: 1px solid #bbbbbb;
-  /* height: 82vh; */
+  flex: 1 1 auto;
   overflow-y: auto;
   padding: 5px;
   border-radius: 8px;
+  overflow: auto;
+  /* max-height: 90vh; */
 }
 
 .current_user {
@@ -53,19 +66,6 @@ li {
   list-style-type: none;
 }
 
-.chat_list {
-  /* height: 100vh; */
-}
-
 .parents_height {
   height: inherit;
-}
-
-@media only screen and (max-width: 600px) {
-  .user_list {
-    /* height: 30vh; */
-  }
-  .chat_list {
-    /* height: 50vh; */
-  }
 }
