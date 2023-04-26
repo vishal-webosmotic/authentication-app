@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { original } from 'immer';
 
 // import { socket } from './socket';
 import getCookie from './utiliti';
@@ -82,11 +83,35 @@ export const authApi = createApi({
         if (conversationId.conversationId !== arg.id) {
           return newItems;
         }
-        currentCache.data.push(...newItems.data);
+        // currentCache.data.push(...newItems?.data);
+        currentCache?.data.push(...(newItems?.data || []));
       },
-      forceRefetch({ currentArg, previousArg, state, endpointState }) {
+      forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       },
+      // async onCacheEntryAdded(
+      //   arg,
+      //   { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getCacheEntry }
+      // ) {
+      //   try {
+      //     await cacheDataLoaded;
+
+      //     const handleUpdate = (msg) => {
+      //       if (arg?.id !== msg?.data?.conversationId) {
+      //         return;
+      //       }
+      //       updateCachedData((draft) => {
+      //         // draft?.data?.data.unshift(msg?.data);
+      //         console.log('draft', draft);
+      //         console.log(original(draft));
+      //       });
+      //     };
+      //     socket.on('getMessage', handleUpdate);
+      //   } catch (error) {
+      //     console.log('error', error);
+      //   }
+      //   await cacheEntryRemoved;
+      // },
     }),
   }),
 });

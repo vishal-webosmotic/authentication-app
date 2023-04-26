@@ -17,21 +17,10 @@ const ChatList = () => {
   const { id } = useParams();
   const inputRef = useRef(null);
   const scrollRef = useRef(null);
-  const [getConversationList, res, ...lastArg] = useLazyGetConversationsQuery();
+  const [getConversationList, res] = useLazyGetConversationsQuery();
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [currentUserData, setCurrentUserData] = useState();
-  // const prevData = usePrevious(currentUserData);
-  // function usePrevious(value) {
-  //   console.log('line 75', value);
-  //   const ref = useRef();
-  //   useEffect(() => {
-  //     ref.current = value;
-  //     console.log('line 81');
-  //   }, [value]);
-  //   return ref.current;
-  // }
-  // console.log('lien 86', prevData);
 
   const conversationsList = useGetConversationsListQuery();
 
@@ -51,6 +40,7 @@ const ChatList = () => {
   const updatePosition = () => {
     const { clientHeight, scrollTop, scrollHeight } = scrollRef.current;
     const lastPositionOfScroll = clientHeight + Math.abs(scrollTop);
+
     if (
       lastPositionOfScroll === scrollHeight &&
       !(res?.data?.totalPage === currentUserDetails.current.page)
@@ -73,12 +63,10 @@ const ChatList = () => {
     if (!id) {
       return;
     }
-    if (!currentUserData) {
-      let matchingData = conversationsList.data?.data.find((item) => {
-        return item.conversationId.toString() === id.toString();
-      });
-      setCurrentUserData(matchingData);
-    }
+    let matchingData = conversationsList.data?.data.find((item) => {
+      return item.conversationId.toString() === id.toString();
+    });
+    setCurrentUserData(matchingData);
   }, [conversationsList.data?.data, currentUserData, id]);
 
   if (!id) {
@@ -104,20 +92,19 @@ const ChatList = () => {
                   />
                 </button>
                 <div className={styles.active_user}>
-                  {/* {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()} */}
+                  {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()}
                 </div>
               </div>
             }
           </>
-          {lastArg[0]?.lastArg.page === 1 && res.isFetching ? (
-            <div className={styles.margin_auto}>
-              {/* <div className={styles.loader}></div> */}
-              Loader
-              {/* {console.log('if')} */}
-            </div>
+          {res?.originalArgs?.page === 1 && res.isFetching ? (
+            <>
+              <div className={styles.margin_auto}>
+                <div className={styles.loader}></div>
+              </div>
+            </>
           ) : (
             <div className={styles.container_border}>
-              {/* {console.log('else')} */}
               <div
                 className={styles.scroll}
                 onScroll={updatePosition}
@@ -133,6 +120,7 @@ const ChatList = () => {
               placeholder="Type message"
               type="text"
               ref={inputRef}
+              onKeyDown={(e) => (e.key === 'Enter' ? handleClick() : null)}
             />
             <Button onClick={() => handleClick()} className="pt-2 ml-1">
               Send
