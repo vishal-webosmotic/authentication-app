@@ -57,6 +57,7 @@ const ChatList = () => {
     };
     socket.emit('sendMessage', message);
     inputRef.current.value = '';
+    scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   useEffect(() => {

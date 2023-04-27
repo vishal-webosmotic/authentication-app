@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { original } from 'immer';
+// import { original } from 'immer';
 //  use for console the proxy
 
 import { socket } from './socket';
@@ -83,7 +83,6 @@ export const authApi = createApi({
         const conversationId = currentCache?.data[0];
 
         if (conversationId.conversationId !== arg.id) {
-          console.log('line 85');
           return newItems;
         }
         const uniqueIds = [];
@@ -95,27 +94,6 @@ export const authApi = createApi({
               return item;
             }
           });
-
-        // const idKey = (item) => item._id;
-        // function removeDuplicatesByKey(inputArray, keyFunction) {
-        //   console.log('line 93', inputArray);
-        //   const unique = [];
-        //   const obj = {};
-        //   inputArray.forEach((item) => {
-        //     let key = keyFunction(item);
-        //     if (!obj[key]) {
-        //       unique.push(item);
-        //       obj[key] = item;
-        //     }
-        //   });
-        //   return unique;
-        // }
-        // const uniqueArray = removeDuplicatesByKey(
-        //   [...(currentCache?.data || []), ...(newItems?.data || [])],
-        //   idKey
-        // );
-        // currentCache?.data.push(...(uniqueArray || []));
-        // currentCache?.data.push(...(newItems?.data || []));
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
@@ -132,7 +110,6 @@ export const authApi = createApi({
               return;
             }
             updateCachedData((draft) => {
-              console.log('line 140', original(draft));
               draft?.data.unshift(msg?.data);
             });
           };
