@@ -30,7 +30,9 @@ const DisplayChatUser = ({ data }) => {
               </div>
               <div className="pt-1 pointer">
                 <p className="fw-bold mb-0">{data.chatUser.firstname}</p>
-                <p className="small mb-0">{data.chatUser.email}</p>
+                <p className={`small mb-0 ${styles.small}`}>
+                  {data.chatUser.email}
+                </p>
               </div>
             </div>
           </div>

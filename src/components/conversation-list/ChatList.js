@@ -19,6 +19,7 @@ const ChatList = () => {
   const scrollRef = useRef(null);
   const [getConversationList, res] = useLazyGetConversationsQuery();
   const { userInfo } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const [currentUserData, setCurrentUserData] = useState();
 
@@ -32,10 +33,14 @@ const ChatList = () => {
     if (!id) {
       return;
     }
+    let matchingData = conversationsList.data?.data.find((item) => {
+      return item.conversationId.toString() === id.toString();
+    });
+    setCurrentUserData(matchingData);
     currentUserDetails.current['conversationId'] = id;
     currentUserDetails.current.page = 1;
     getConversationList({ page: currentUserDetails.current.page, id });
-  }, [getConversationList, id]);
+  }, [conversationsList.data?.data, getConversationList, id]);
 
   const updatePosition = () => {
     const { clientHeight, scrollTop, scrollHeight } = scrollRef.current;
@@ -60,23 +65,15 @@ const ChatList = () => {
     scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-    let matchingData = conversationsList.data?.data.find((item) => {
-      return item.conversationId.toString() === id.toString();
-    });
-    setCurrentUserData(matchingData);
-  }, [conversationsList.data?.data, currentUserData, id]);
-
   if (!id) {
     return <div className="text-center">No user selected</div>;
   }
   return (
     <>
       {res.isLoading || !userInfo.lastname ? (
-        <div className="text-center">No Chat Found</div>
+        <>
+          <div className="text-center">No Chat Found</div>
+        </>
       ) : (
         <>
           <div className={styles.chat_header}>
