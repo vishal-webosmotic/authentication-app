@@ -78,25 +78,18 @@ const ChatList = () => {
         <div className="text-center">No Chat Found</div>
       ) : (
         <>
-          <>
-            {
-              <div className={styles.chat_header}>
-                <button
-                  className={styles.btn_arrow}
-                  onClick={() => navigate(-1)}
-                >
-                  <img
-                    src={backArrow}
-                    className={styles.arrow_img}
-                    alt="back Arrow"
-                  />
-                </button>
-                <div className={styles.active_user}>
-                  {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()}
-                </div>
-              </div>
-            }
-          </>
+          <div className={styles.chat_header}>
+            <button className={styles.btn_arrow} onClick={() => navigate(-1)}>
+              <img
+                src={backArrow}
+                className={styles.arrow_img}
+                alt="back Arrow"
+              />
+            </button>
+            <div className={styles.active_user}>
+              {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()}
+            </div>
+          </div>
           {res?.originalArgs?.page === 1 && res.isFetching ? (
             <>
               <div className={styles.margin_auto}>

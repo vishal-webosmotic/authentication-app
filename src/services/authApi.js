@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-// import { original } from 'immer';
+import { original } from 'immer';
+//  use for console the proxy
 
-// import { socket } from './socket';
+import { socket } from './socket';
 import getCookie from './utiliti';
 
 export const authApi = createApi({
@@ -65,7 +66,7 @@ export const authApi = createApi({
     getConversations: builder.query({
       query: ({ page, id }) => {
         return {
-          url: `chats/get-conversation?conversationId=${id}&pageNumber=${page}&pageSize=20`,
+          url: `chats/get-conversation?conversationId=${id}&pageNumber=${page}&pageSize=15`,
           method: 'GET',
         };
       },
@@ -76,42 +77,72 @@ export const authApi = createApi({
       },
       merge: (currentCache, newItems, { arg }) => {
         if (!newItems.data.length) {
+          console.log('line 80');
           return;
         }
         const conversationId = currentCache?.data[0];
 
         if (conversationId.conversationId !== arg.id) {
+          console.log('line 85');
           return newItems;
         }
-        // currentCache.data.push(...newItems?.data);
-        currentCache?.data.push(...(newItems?.data || []));
+        const uniqueIds = [];
+        currentCache.data = [...currentCache.data]
+          .concat(...newItems.data)
+          .filter((item) => {
+            if (!uniqueIds.includes(item._id)) {
+              uniqueIds.push(item._id);
+              return item;
+            }
+          });
+
+        // const idKey = (item) => item._id;
+        // function removeDuplicatesByKey(inputArray, keyFunction) {
+        //   console.log('line 93', inputArray);
+        //   const unique = [];
+        //   const obj = {};
+        //   inputArray.forEach((item) => {
+        //     let key = keyFunction(item);
+        //     if (!obj[key]) {
+        //       unique.push(item);
+        //       obj[key] = item;
+        //     }
+        //   });
+        //   return unique;
+        // }
+        // const uniqueArray = removeDuplicatesByKey(
+        //   [...(currentCache?.data || []), ...(newItems?.data || [])],
+        //   idKey
+        // );
+        // currentCache?.data.push(...(uniqueArray || []));
+        // currentCache?.data.push(...(newItems?.data || []));
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       },
-      // async onCacheEntryAdded(
-      //   arg,
-      //   { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getCacheEntry }
-      // ) {
-      //   try {
-      //     await cacheDataLoaded;
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        try {
+          await cacheDataLoaded;
 
-      //     const handleUpdate = (msg) => {
-      //       if (arg?.id !== msg?.data?.conversationId) {
-      //         return;
-      //       }
-      //       updateCachedData((draft) => {
-      //         // draft?.data?.data.unshift(msg?.data);
-      //         console.log('draft', draft);
-      //         console.log(original(draft));
-      //       });
-      //     };
-      //     socket.on('getMessage', handleUpdate);
-      //   } catch (error) {
-      //     console.log('error', error);
-      //   }
-      //   await cacheEntryRemoved;
-      // },
+          const handleUpdate = (msg) => {
+            if (arg?.id !== msg?.data?.conversationId) {
+              return;
+            }
+            updateCachedData((draft) => {
+              console.log('line 140', original(draft));
+              draft?.data.unshift(msg?.data);
+            });
+          };
+          socket.on('getMessage', handleUpdate);
+        } catch (error) {
+          console.log('error', error);
+        }
+
+        await cacheEntryRemoved;
+      },
     }),
   }),
 });
