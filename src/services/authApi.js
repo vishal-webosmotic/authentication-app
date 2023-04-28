@@ -95,27 +95,6 @@ export const authApi = createApi({
               return item;
             }
           });
-
-        // const idKey = (item) => item._id;
-        // function removeDuplicatesByKey(inputArray, keyFunction) {
-        //   console.log('line 93', inputArray);
-        //   const unique = [];
-        //   const obj = {};
-        //   inputArray.forEach((item) => {
-        //     let key = keyFunction(item);
-        //     if (!obj[key]) {
-        //       unique.push(item);
-        //       obj[key] = item;
-        //     }
-        //   });
-        //   return unique;
-        // }
-        // const uniqueArray = removeDuplicatesByKey(
-        //   [...(currentCache?.data || []), ...(newItems?.data || [])],
-        //   idKey
-        // );
-        // currentCache?.data.push(...(uniqueArray || []));
-        // currentCache?.data.push(...(newItems?.data || []));
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
