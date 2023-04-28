@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-// import backArrow from '../../assets/back_arrow.svg';
 import {
   useLazyGetConversationsQuery,
   useGetConversationsListQuery,
@@ -20,7 +19,6 @@ const ChatList = () => {
   const [getConversationList, res] = useLazyGetConversationsQuery();
   const { userInfo } = useSelector((state) => state.auth);
 
-  // const navigate = useNavigate();
   const [currentUserData, setCurrentUserData] = useState();
 
   const conversationsList = useGetConversationsListQuery();
@@ -70,28 +68,25 @@ const ChatList = () => {
   }
   return (
     <>
-      {res.isLoading || !userInfo.lastname ? (
+      {!res.data || !userInfo.lastname ? (
         <>
           <div className="text-center">No Chat Found</div>
         </>
       ) : (
         <>
           <div className={styles.chat_header}>
-            {/* <button className={styles.btn_arrow} onClick={() => navigate(-1)}>
-              <img
-                src={backArrow}
-                className={styles.arrow_img}
-                alt="back Arrow"
-              />
-            </button> */}
             <div className={styles.active_user}>
               {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()}
+            </div>
+
+            <div className="fw-bold">
+              {currentUserData?.chatUser?.firstname}
             </div>
           </div>
           {res?.originalArgs?.page === 1 && res.isFetching ? (
             <>
               <div className={styles.margin_auto}>
-                <div className={styles.loader}></div>
+                <div className="spinner-border spinner-border-sm"></div>
               </div>
             </>
           ) : (

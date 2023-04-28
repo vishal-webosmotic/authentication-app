@@ -49,7 +49,8 @@
   background: #fbfcf8;
   width: 100%;
   display: flex;
-  /* flex: 0 1 auto; */
+  align-items: center;
+  border-radius: 8px;
 }
 
 .container_border {
@@ -67,20 +68,9 @@
   flex-direction: column-reverse;
 }
 
-/* .scroll {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column-reverse;
-  max-height: 75vh;
-} */
-
 .btn_arrow {
-  /* border-radius: 50%; */
   background: transparent;
   border: none;
-  /* height: 33px; */
-  /* margin-left: 10px; */
-  /* margin-top: 2px; */
 }
 
 .active_user {
@@ -130,7 +120,8 @@ li {
   list-style-type: none;
 }
 
-@media screen and (max-width: 480px) {
+/* @media screen and (max-width: 480px) { */
+@media screen and (max-width: 660px) {
   .chat_list_container {
     height: 50vh;
     overflow: auto;

@@ -1,4 +1,3 @@
-// import './Cardlist.css';
 import style from './Cardlist.module.css';
 
 export const CardList = ({ card }) => {
@@ -12,8 +11,5 @@ export const CardList = ({ card }) => {
         </div>
       </div>
     </div>
-    //    <td>{data.description}</td>
-    //   <td>{data.title}</td>
-    //   <td>{data.userId}</td>
   );
 };

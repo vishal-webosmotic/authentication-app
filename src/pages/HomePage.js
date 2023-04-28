@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 // import { useSelector } from 'react-redux';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { CardList } from '../components/card-list/CardList';
 import { useAuth } from '../context/AuthContext';
-import { useGetPostQuery } from '../services/authApi';
+import { useGetPostQuery, authApi } from '../services/authApi';
 import DisplayRow from './DisplayRow';
 import style from './HomePage.module.css';
+
 const HomePage = () => {
   const { removeAuth } = useAuth();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams({});
   const { userInfo } = useSelector((state) => state.auth);
   const pageNumber = Number(searchParams.get('pageNumber')) || 1;
@@ -40,6 +41,7 @@ const HomePage = () => {
   const state = useGetPostQuery(pageNumber);
   const handleLogout = () => {
     removeAuth('access_token');
+    dispatch(authApi.util.resetApiState());
   };
   const handlePreviousData = () => {
     if (pageNumber === 2) {
@@ -62,10 +64,7 @@ const HomePage = () => {
       <div className="text-center font-weight-bold my-2">
         Name :{' '}
         {!userInfo.firstname ? (
-          <>
-            getting info....
-            {/* <span className="spinner-border spinner-border-sm mr-1"></span> */}
-          </>
+          <>getting info....</>
         ) : (
           userInfo.firstname.charAt(0).toUpperCase() +
           userInfo.firstname.slice(1) +
@@ -85,7 +84,6 @@ const HomePage = () => {
             <div className="text-center">No data found</div>
           ) : screenSize.dynamicWidth > 450 ? (
             <>
-              {/* <table className="table-responsive-sm table-dark table-bordered text-center"> */}
               <div className={style.wrapper}>
                 <table
                   className={`table-responsive-sm table-dark table-bordered text-center ${style.center} ${style.tableWidth}
@@ -133,8 +131,6 @@ const HomePage = () => {
           Next
         </button>
       </div>
-
-      {/* <div className={style.center1}> */}
 
       <div className={style.btn_center}>
         <button

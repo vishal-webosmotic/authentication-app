@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 
-// import { useDispatch, useSelector } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
@@ -10,11 +9,9 @@ import { setUserInfo } from '../store/authSlice';
 
 const AuthWrapper = ({ isAuth = true, children }) => {
   const { userInfo } = useSelector((state) => state.auth);
-  // console.log(userInfo);
   const userData = useContext(UserContext);
   const [func, data] = useGetUserMutation();
   const dispatch = useDispatch();
-  // console.log('data', { data, userData, userInfo });
 
   useEffect(() => {
     if (!userInfo?.success && userData?.token && isAuth) {

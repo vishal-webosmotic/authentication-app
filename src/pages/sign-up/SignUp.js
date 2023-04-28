@@ -8,19 +8,10 @@ import styles from '../page.module.css';
 
 export default function SignUp() {
   const { register, handleSubmit, formState } = useForm();
-  // {
-  // defaultValues: {
-  //   firstname: 'john',
-  //   lastname: 'cena',
-  //   username: 'john1',
-  //   email: 'abc@gmail.com',
-  //   password: 'abcd@1234',
-  // },
-  // }
+
   const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
-  // const { errors, isSubmitting } = formState;
   const { errors } = formState;
 
   const [signupUser, res] = useSignupUserMutation();
@@ -42,11 +33,6 @@ export default function SignUp() {
   function onSubmit(data) {
     signupUser(data);
     setMessage('');
-    // return new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve();
-    //   }, 800);
-    // });
   }
 
   const registerOptions = {
@@ -138,12 +124,9 @@ export default function SignUp() {
             </button>
           </div>
           <div className={styles.signUpButton}>
-            <Link to={'/signin'}>Already User</Link>
+            <Link to={'/signin'}>Already User?</Link>
           </div>
         </form>
-        {/* <button onClick={() => navigate('/signin')} className={styles.singInUp}>
-          Sing In
-        </button> */}
       </div>
     </div>
   );

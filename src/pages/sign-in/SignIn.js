@@ -45,7 +45,6 @@ export default function SignIn() {
     setAuth,
     dispatch,
   ]);
-  // console.log(res?.data?.data?.token);
 
   function onSubmit(data) {
     signupIn(data);
@@ -104,12 +103,9 @@ export default function SignIn() {
           Submit
         </button>
         <div className={styles.signUpButton}>
-          <Link to={'/signup'}>Become user</Link>
+          <Link to={'/signup'}>Become user?</Link>
         </div>
       </form>
-      {/* <button onClick={() => navigate('/signup')} className={styles.singInUp}>
-        Sing Up
-      </button> */}
     </div>
   );
 }

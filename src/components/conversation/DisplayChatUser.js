@@ -19,9 +19,7 @@ const DisplayChatUser = ({ data }) => {
         onClick={() => handleConversationId(data.conversationId)}
       >
         <li
-          className={`p-2 border-bottom  ${
-            data.conversationId === id && styles.current_user
-          }`}
+          className={`p-2 ${data.conversationId === id && styles.current_user}`}
         >
           <div className="d-flex justify-content-between">
             <div className="d-flex flex-row">

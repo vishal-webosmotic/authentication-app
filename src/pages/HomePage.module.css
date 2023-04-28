@@ -21,9 +21,7 @@
 }
 
 .center1 {
-  /* margin: auto; */
   width: 200px;
-  /* margin-top: 2px; */
   margin: 2px auto auto auto;
 }
 
@@ -33,7 +31,6 @@
 }
 
 .center_loader {
-  /* margin: 30px 50vw; */
   margin: 0px 50vw;
 }
 
@@ -82,20 +79,6 @@
   display: fl;
 }
 
-/* 
-
-
-
-th,
-td {
-  padding: 15px;
-  letter-spacing: 3px;
-}
-
-tr:hover :not(th) {
-  background-color: #617cdd;
-} */
-
 .btn_group {
   display: flex;
   margin-top: 20px;
@@ -110,10 +93,3 @@ tr:hover :not(th) {
 table {
   overflow-y: scroll;
 }
-
-/* 
-
-table {
-  border-collapse: collapse;
-  width: 50%;
-} */

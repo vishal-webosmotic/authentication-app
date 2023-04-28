@@ -3,7 +3,8 @@
 }
 
 .member {
-  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .cursor_pt {
@@ -27,7 +28,6 @@
   padding: 5px;
   border-radius: 8px;
   overflow: auto;
-  /* max-height: 90vh; */
 }
 
 .current_user {
@@ -50,6 +50,15 @@
   background-color: rgb(255, 255, 255);
 }
 
+.arrow_img {
+  height: 30px;
+}
+
+.btn_arrow {
+  background: transparent;
+  border: none;
+}
+
 .center_chat_loader {
   margin: 50vh 30vw;
 }
@@ -60,7 +69,6 @@
 }
 
 .user {
-  /* position: absolute; */
   margin-left: 14px;
   width: 100%;
   font-size: x-large;

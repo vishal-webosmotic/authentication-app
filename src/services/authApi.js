@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { original } from 'immer';
-//  use for console the proxy
+//  use to display proxy object
 
 import { socket } from './socket';
 import getCookie from './utiliti';

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
+import backArrow from '../../assets/back_arrow.svg';
 import { useGetConversationsListQuery } from '../../services/authApi';
 import styles from './conversation.module.css';
 import DisplayChatUser from './DisplayChatUser';
@@ -13,7 +13,10 @@ const ChatUser = () => {
   return (
     <>
       <div className={styles.member}>
-        <div className={styles.user}>User</div>
+        <div className={styles.user}>Users</div>
+        <button className={styles.btn_arrow} onClick={() => navigate('/')}>
+          <img src={backArrow} className={styles.arrow_img} alt="back Arrow" />
+        </button>
       </div>
       <div className={styles.user_list}>
         {conversationsList.isLoading
@@ -27,12 +30,6 @@ const ChatUser = () => {
               );
             })}
       </div>
-      <Button
-        className={`mt-2 ${styles.btn_margin}`}
-        onClick={() => navigate('/')}
-      >
-        Home Page
-      </Button>
     </>
   );
 };
