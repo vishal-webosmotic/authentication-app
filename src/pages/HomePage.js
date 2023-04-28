@@ -86,7 +86,7 @@ const HomePage = () => {
           ) : screenSize.dynamicWidth > 450 ? (
             <>
               {/* <table className="table-responsive-sm table-dark table-bordered text-center"> */}
-              <div className={style.table_wrapper}>
+              <div className={style.wrapper}>
                 <table
                   className={`table-responsive-sm table-dark table-bordered text-center ${style.center} ${style.tableWidth}
                   `}
@@ -108,9 +108,11 @@ const HomePage = () => {
             </>
           ) : (
             <>
-              {state.data?.data.map((item) => (
-                <CardList key={item._id} card={item} />
-              ))}
+              <div className={style.wrapper}>
+                {state.data?.data.map((item) => (
+                  <CardList key={item._id} card={item} />
+                ))}
+              </div>
             </>
           )}
         </>
