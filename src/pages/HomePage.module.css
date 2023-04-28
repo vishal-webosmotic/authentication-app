@@ -104,6 +104,7 @@ tr:hover :not(th) {
 .btn_prev,
 .btn_next {
   border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 table {

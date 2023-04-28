@@ -2,9 +2,9 @@ import { useRef, useEffect, useState } from 'react';
 
 import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import backArrow from '../../assets/back_arrow.svg';
+// import backArrow from '../../assets/back_arrow.svg';
 import {
   useLazyGetConversationsQuery,
   useGetConversationsListQuery,
@@ -20,7 +20,7 @@ const ChatList = () => {
   const [getConversationList, res] = useLazyGetConversationsQuery();
   const { userInfo } = useSelector((state) => state.auth);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [currentUserData, setCurrentUserData] = useState();
 
   const conversationsList = useGetConversationsListQuery();
@@ -77,13 +77,13 @@ const ChatList = () => {
       ) : (
         <>
           <div className={styles.chat_header}>
-            <button className={styles.btn_arrow} onClick={() => navigate(-1)}>
+            {/* <button className={styles.btn_arrow} onClick={() => navigate(-1)}>
               <img
                 src={backArrow}
                 className={styles.arrow_img}
                 alt="back Arrow"
               />
-            </button>
+            </button> */}
             <div className={styles.active_user}>
               {currentUserData?.chatUser?.firstname.charAt(0).toUpperCase()}
             </div>
