@@ -106,9 +106,9 @@ export const authApi = createApi({
           await cacheDataLoaded;
 
           const handleUpdate = (msg) => {
-            if (arg?.id !== msg?.data?.conversationId) {
-              return;
-            }
+            // if (arg?.id !== msg?.data?.conversationId) {
+            //   return;
+            // }
             updateCachedData((draft) => {
               draft?.data.unshift(msg?.data);
             });

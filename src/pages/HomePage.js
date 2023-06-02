@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// import { useSelector } from 'react-redux';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
